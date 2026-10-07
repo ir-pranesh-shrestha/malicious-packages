@@ -1,8 +1,8 @@
 {
   "schema_version": "1.7.4",
-  "modified": "2026-10-07T05:54:47Z",
+  "modified": "2026-10-07T06:03:15Z",
   "published": "2026-10-07T04:52:26Z",
-  "details": "personio-pipeline-projen presents itself as an authorized security-research dependency-confusion proof of concept. Its preinstall hook runs on npm install with `node canary.js`. The probe encodes the machine hostname, OS username, names of present CI environment variables, root project name, and lifecycle event in DNS and an HTTPS GET to `hrcv3zo9m3z70yr91ssdz669c0ir6ju8.oastify.com` and `db2su65ptuma8gfn6ing8e7dx7wp55zit.oast.fun`. The npm account reaperhackbot256f published it on 2026-10-07.",
+  "details": "personio-pipeline-projen presents itself as an authorized dependency-confusion proof-of-concept; the evidence does not identify a copied public package. Its preinstall hook runs on install with `node canary.js`. The dependency-confusion probe encodes the installing machine's hostname and username, present CI-variable names, and root project and lifecycle identifiers in a DNS label under `db2su65ptuma8gfn6ing8e7dx7wp55zit.oast.fun`, and sends an HTTPS GET to `hrcv3zo9m3z70yr91ssdz669c0ir6ju8.oastify.com`. The npm account `reaperhackbot256f` published it on 2026-10-07 (UTC).",
   "affected": [
     {
       "package": {
@@ -46,7 +46,7 @@
         "hrcv3zo9m3z70yr91ssdz669c0ir6ju8.oastify.com"
       ],
       "urls": [
-        "https://hrcv3zo9m3z70yr91ssdz669c0ir6ju8.oastify.com/h?id="
+        "https://hrcv3zo9m3z70yr91ssdz669c0ir6ju8.oastify.com/h"
       ],
       "files": [
         {
