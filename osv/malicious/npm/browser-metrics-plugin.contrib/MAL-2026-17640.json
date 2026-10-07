@@ -1,7 +1,9 @@
 {
-  "schema_version": "1.7.4",
   "modified": "2026-10-07T02:43:30Z",
   "published": "2026-10-07T00:01:40Z",
+  "schema_version": "1.7.4",
+  "id": "MAL-2026-17640",
+  "summary": "Malicious code in browser-metrics-plugin.contrib (npm)",
   "details": "browser-metrics-plugin.contrib is a dependency-confusion package: it is described as a \"Compatibility shim\", uses version numbers up to 99.0.1, and its README calls it an \"authorized dependency-confusion test\". Each listed version has a postinstall script that runs `node beacon.cjs` on npm install, and index.js calls the same code when the package is imported; it POSTs the hostname, install path and current working directory over plain HTTP to `http://185.158.107.175:8787/_ah/dc`, and index.js exports a Proxy that returns no-op functions so builds importing the real package keep running. The npm account xwise8887 published these 6 versions, and 7 versions of troubleshooting with the same payload, on 2026-10-07 between 00:01 and 00:07 UTC.",
   "affected": [
     {
@@ -37,152 +39,152 @@
   "credits": [
     {
       "name": "InvisiRisk, Inc.",
+      "type": "FINDER",
       "contact": [
         "https://www.invisirisk.com",
         "mailto:research@invisirisk.com"
-      ],
-      "type": "FINDER"
+      ]
     }
   ],
   "database_specific": {
     "iocs": {
-      "urls": [
-        "http://185.158.107.175:8787/_ah/dc"
+      "files": [
+        {
+          "digests": {
+            "sha256": "a86a4da763bbb34c16f361abe7aab66d5df591b66867ac8160041f932159b08d"
+          },
+          "note": "Main entry point; calls beacon.cjs fire() on import and exports a no-op Proxy. Identical in all listed versions.",
+          "paths": [
+            "index.js"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "88be31855364b43e29af8f413bf77718668e433e9b99ecff86af611f691efbba"
+          },
+          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@0.0.1).",
+          "paths": [
+            "package.json"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
+          },
+          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@0.0.1.",
+          "paths": [
+            "beacon.cjs"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "f685ef1fd4bf7e6c89a1d30f9a95fb2565bf43aef8926c47831ea406ce6ec68f"
+          },
+          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@1.0.0).",
+          "paths": [
+            "package.json"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
+          },
+          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@1.0.0.",
+          "paths": [
+            "beacon.cjs"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "91930c57df71a1daf5175de4fc1321cd2141a74d5e65ba65bb27f29d3fda5d4c"
+          },
+          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@1.1.0).",
+          "paths": [
+            "package.json"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
+          },
+          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@1.1.0.",
+          "paths": [
+            "beacon.cjs"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "ee6d3b15a0f508112999466fd4eb170cb891850297f3bed92d3d657937886d4f"
+          },
+          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@99.0.1).",
+          "paths": [
+            "package.json"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
+          },
+          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@99.0.1.",
+          "paths": [
+            "beacon.cjs"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "24fddf171255e79f57cafdc4f3f98f3b4beb61fd5f655c2dd2ac7ba2a657a678"
+          },
+          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@1.0.1).",
+          "paths": [
+            "package.json"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
+          },
+          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@1.0.1.",
+          "paths": [
+            "beacon.cjs"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "fd6ab85e9991034a33de280acf3acba5c15ea35210227017a764df9c420ff1e8"
+          },
+          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@2.0.1).",
+          "paths": [
+            "package.json"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        },
+        {
+          "digests": {
+            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
+          },
+          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@2.0.1.",
+          "paths": [
+            "beacon.cjs"
+          ],
+          "source": "PACKAGE_ARCHIVE"
+        }
       ],
       "ips": [
         "185.158.107.175"
       ],
-      "files": [
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "index.js"
-          ],
-          "digests": {
-            "sha256": "a86a4da763bbb34c16f361abe7aab66d5df591b66867ac8160041f932159b08d"
-          },
-          "note": "Main entry point; calls beacon.cjs fire() on import and exports a no-op Proxy. Identical in all listed versions."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "package.json"
-          ],
-          "digests": {
-            "sha256": "88be31855364b43e29af8f413bf77718668e433e9b99ecff86af611f691efbba"
-          },
-          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@0.0.1)."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "beacon.cjs"
-          ],
-          "digests": {
-            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
-          },
-          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@0.0.1."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "package.json"
-          ],
-          "digests": {
-            "sha256": "f685ef1fd4bf7e6c89a1d30f9a95fb2565bf43aef8926c47831ea406ce6ec68f"
-          },
-          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@1.0.0)."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "beacon.cjs"
-          ],
-          "digests": {
-            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
-          },
-          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@1.0.0."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "package.json"
-          ],
-          "digests": {
-            "sha256": "91930c57df71a1daf5175de4fc1321cd2141a74d5e65ba65bb27f29d3fda5d4c"
-          },
-          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@1.1.0)."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "beacon.cjs"
-          ],
-          "digests": {
-            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
-          },
-          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@1.1.0."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "package.json"
-          ],
-          "digests": {
-            "sha256": "ee6d3b15a0f508112999466fd4eb170cb891850297f3bed92d3d657937886d4f"
-          },
-          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@99.0.1)."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "beacon.cjs"
-          ],
-          "digests": {
-            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
-          },
-          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@99.0.1."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "package.json"
-          ],
-          "digests": {
-            "sha256": "24fddf171255e79f57cafdc4f3f98f3b4beb61fd5f655c2dd2ac7ba2a657a678"
-          },
-          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@1.0.1)."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "beacon.cjs"
-          ],
-          "digests": {
-            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
-          },
-          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@1.0.1."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "package.json"
-          ],
-          "digests": {
-            "sha256": "fd6ab85e9991034a33de280acf3acba5c15ea35210227017a764df9c420ff1e8"
-          },
-          "note": "postinstall script runs `node beacon.cjs`, which POSTs hostname, install path and cwd to http://185.158.107.175:8787/_ah/dc (browser-metrics-plugin.contrib@2.0.1)."
-        },
-        {
-          "source": "PACKAGE_ARCHIVE",
-          "paths": [
-            "beacon.cjs"
-          ],
-          "digests": {
-            "sha256": "ecf3c6444166022b6982dd2a76e79379bc457c5fadb0d5885372c74dd5fcc778"
-          },
-          "note": "Executed by the postinstall script of browser-metrics-plugin.contrib@2.0.1."
-        }
+      "urls": [
+        "http://185.158.107.175:8787/_ah/dc"
       ]
     }
   }
