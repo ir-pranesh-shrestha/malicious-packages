@@ -1,8 +1,8 @@
 {
   "schema_version": "1.7.4",
-  "modified": "2026-10-08T15:24:48Z",
+  "modified": "2026-10-08T15:36:59Z",
   "published": "2026-10-08T15:19:15Z",
-  "details": "@galicia-toolkit/tag-manager@999.0.3 claims the `@galicia-toolkit` scope and describes itself as a dependency-confusion PoC. Its postinstall hook runs on npm install using `node postinstall.js || true` and sends encoded hostname, working-directory, platform, runtime-version, and username data as DNS labels to `oob.s4yhii.com`, making it a dependency-confusion probe that collects environment data. The npm account s4yhii_ published it on 2026-10-08.",
+  "details": "@galicia-toolkit/tag-manager claims the `@galicia-toolkit` scope and describes itself as a dependency-confusion PoC. Its postinstall hook runs `node postinstall.js || true` on npm install; the script collects host, platform, runtime, network, and environment data, then sends it over HTTP to `oob.s4yhii.com:9999` and encodes hostname, username, platform, and architecture in DNS queries to subdomains of `oob.s4yhii.com`. The npm account s4yhii_ published versions 999.0.3 and 999.0.5, with 999.0.5 published on 2026-10-08.",
   "affected": [
     {
       "package": {
@@ -10,7 +10,8 @@
         "name": "@galicia-toolkit/tag-manager"
       },
       "versions": [
-        "999.0.3"
+        "999.0.3",
+        "999.0.5"
       ],
       "database_specific": {
         "cwes": [
@@ -41,6 +42,12 @@
   ],
   "database_specific": {
     "iocs": {
+      "domains": [
+        "oob.s4yhii.com",
+        "h.dc.oob.s4yhii.com",
+        "u.dc.oob.s4yhii.com",
+        "m.dc.oob.s4yhii.com"
+      ],
       "files": [
         {
           "source": "PACKAGE_ARCHIVE",
@@ -61,6 +68,26 @@
             "sha256": "14f11babedc67602e606cd4433febbb8a2b45da061a382bfa3f4bba1810e5a3e"
           },
           "note": "Executed by the postinstall script of @galicia-toolkit/tag-manager@999.0.3."
+        },
+        {
+          "source": "PACKAGE_ARCHIVE",
+          "paths": [
+            "package.json"
+          ],
+          "digests": {
+            "sha256": "27b6e3149cd84958edcf264c714c920c89917c88c045243bd21dc8b1c30598ed"
+          },
+          "note": "postinstall script: node postinstall.js || true"
+        },
+        {
+          "source": "PACKAGE_ARCHIVE",
+          "paths": [
+            "postinstall.js"
+          ],
+          "digests": {
+            "sha256": "8f594ecf273949f1dbbc8d4cd90f3133b191c05cf3162a50e934c13d48565f5f"
+          },
+          "note": "Executed by the postinstall script of @galicia-toolkit/tag-manager@999.0.5."
         }
       ]
     }
