@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:42:43Z",
+  "modified": "2026-10-09T13:42:43Z",
+  "summary": "Host reconnaissance beacon on require() to hardcoded third-party endpoint",
+  "details": "On require() of @galicia-toolkit-nestjs-20-lite/archetype, index.js loads cb-minimal.js which collects host identifiers (os.hostname, platform, arch, OS release, process.cwd, memory, os.userInfo().username, package name/version) and POSTs them as JSON over plain HTTP to the hardcoded host oob.s4yhii.com:80 at path /t. The require is wrapped in a try/catch so failures are silently swallowed. The destination is unrelated to the package's declared NestJS-utility purpose, the behavior is undisclosed, and the scope-and-version naming (`-lite/archetype`, `999.0.5`) is consistent with a dependency-confusion lure targeting an internal namespace.",
+  "affected": [
+    {
+      "package": {
+        "name": "@galicia-toolkit-nestjs-20-lite/archetype",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.5"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "cb-minimal.js",
+              "sha256": "16e7b1448727da6e3a8ed3c5df27925bf481b6941a4934a9f297882b8ade58eb",
+              "tlsh": "2df0acc0b2d0b1a132beb65498b6110213f2d4b674c37dd4599c84993bacaa200779ff"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "archetype-999.0.5.tgz",
+              "hashes": {
+                "sha1": "9b376273df21352fa5f6674d89022c64c3e1de7f",
+                "sha512_sri": "sha512-Y3D2D3IaTErXC1AoMb0SwJL24F5r6bbSaGm3RBgKRlAQmXbHZEEqFGq150pFAsrx+pNaPsJONriGDVyOV49uGQ=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@galicia-toolkit-nestjs-20-lite/archetype/v/999.0.5"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021333",
+        "import_time": "2026-10-09T13:46:20.653804737Z",
+        "modified_time": "2026-10-09T13:42:43Z",
+        "sha256": "1d1a25f90c7a853514f2a5c1e87796552feb4f2fb49d9b5c45e48663460fb39e",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.5"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

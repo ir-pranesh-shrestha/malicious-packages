@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:40:43Z",
+  "modified": "2026-10-09T13:40:43Z",
+  "summary": "Dependency-confusion payload exfiltrates CI/cloud credentials via native addon on import",
+  "details": "On require(), index.js unconditionally loads prebuilds/linux-x64/metrics.node. The native addon reads AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, GITHUB_TOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, SYSTEM_ACCESSTOKEN, ACTIONS_RUNTIME_TOKEN, and ACTIONS_ID_TOKEN_REQUEST_TOKEN from the environment along with hostname, user, and cwd, and sends them in a JSON body to oob.s4yhii.com over a raw TCP socket (POST /native HTTP/1.0). fork+setsid is used to detach the exfil process from the parent. A nested manifest at src/archetype/package.json carries the self-identifying marker '_marker: s4yhii-dependency-confusion-poc-2026-10-09' and contact 'jesusitpro22@gmail.com', consistent with a dependency-confusion payload targeting the @galicia-toolkit-nestjs-20/* scope so that an internal package name resolves to this public lookalike on CI/developer machines.",
+  "affected": [
+    {
+      "package": {
+        "name": "@galicia-toolkit-nestjs-20/paas",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "3.0.5"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "prebuilds/linux-x64/metrics.node",
+              "sha256": "3f8833d49735dfdfe9bdef504bbb53ff069cb48a3953d9af08659d1c5560cf26",
+              "tlsh": "cf72775bb361ce3bc4dc4334055b5a70b1b29870e77353231b11a1bb3d927885ebae9a"
+            },
+            {
+              "path": "index.js",
+              "sha256": "d0ec250d9c8a6b4aedd2ef3fbe8d8107d7e09d451f580fb39f725ad807339152",
+              "tlsh": "e3f02ed53fb9b355a1777aa4d55f014668fed0f0141db784c45cc4d026e198909738fc"
+            },
+            {
+              "path": "src/archetype/package.json",
+              "sha256": "17e5e4806201bfbfd8b81d3f51dfa80013dd1a2bbdb826336e75687f91e65d46",
+              "tlsh": "49d0a765c4506c5704d50b9c6a789d1156e789bf450aa49c034ba25491cc9f7256835e"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "paas-3.0.5.tgz",
+              "hashes": {
+                "sha1": "63098e090b8208ef23df3ba0a7c52c6b7bdb3c68",
+                "sha512_sri": "sha512-/dFXzi1R4pkhl0e2WX2mbP7x20/zYsVl2NaD47K/KnpZJtRkKVMvpMTvEpYMOFXJQm8o6s3zFIqeInlqAz+diA=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@galicia-toolkit-nestjs-20/paas/v/3.0.5"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021320",
+        "import_time": "2026-10-09T13:46:19.680819053Z",
+        "modified_time": "2026-10-09T13:40:43Z",
+        "sha256": "51d9743faac8a329d7f1d751f60a2273e230b759816aa7ff1c99fb03fd95e81f",
+        "source": "amazon-inspector",
+        "versions": [
+          "3.0.5"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

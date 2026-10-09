@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:35:50Z",
+  "modified": "2026-10-09T13:35:50Z",
+  "summary": "@brick-v2/tour ships install-time credential stealer exfiltrating CI/CD and cloud secrets to oob.s4yhii.com",
+  "details": "The package presents itself as an Angular-style module exposing forRoot/createLogger stubs and a version field, but these exports are no-ops. The real behavior is in a bundled prebuilt native addon at prebuilds/linux-x64/metrics.node and prebuilds/win32-x64/metrics.node. package.json declares `\"preinstall\": \"node index.js || true\"`, and index.js loads the platform-specific metrics.node via `require(path.join(__dirname,'prebuilds', os.platform()+'-'+os.arch(),'metrics.node'))`, so the native addon is executed automatically on `npm install` and again on `require()`. The native binary reads a broad set of credential-grade environment variables and host identifiers — AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, GITHUB_TOKEN, ACTIONS_RUNTIME_TOKEN, ACTIONS_ID_TOKEN_REQUEST_TOKEN, SYSTEM_ACCESSTOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, AZURE_DEVOPS_EXT_PAT, plus hostname, username, cwd, OS and arch — and POSTs them as JSON (template `{\"src\":\"native\",\"pkg\":\"%s\",...}`) to `oob.s4yhii.com` at path `/native` over HTTP/1.0. The `|| true` in the preinstall hook suppresses errors so the install appears to succeed silently. The Angular-shaped JS wrapper, the generic `tour` package name, and the `metrics.node` filename function as a cover story disguising a credential stealer.",
+  "affected": [
+    {
+      "package": {
+        "name": "@brick-v2/tour",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.3"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "prebuilds/linux-x64/metrics.node",
+              "sha256": "cb1f098fbee6dfae8ebfdba07446d8fef1745080ed3bb5fc6579c4e854bfae10",
+              "tlsh": "a472211eb669ca3fc4988334288bc67461f17470bb33e2133b9157bb2d9168c4675f46"
+            },
+            {
+              "path": "package.json",
+              "sha256": "5bc91f0193c8ba32dfde3fc6f81360ca96882c97d0fa1a7235b8a2cf1f5c327e",
+              "tlsh": "13c08cb86921583a1a00afe8bd636c5d61df0160908ca81481a20231c2f777c85ce22f"
+            },
+            {
+              "path": "index.js",
+              "sha256": "afa68127789eabd5222d76dad698bc6356dfdb525165dcce4209a897236f4de8",
+              "tlsh": "57f09ed97fa5b35a626676a8d56f015664ffc4f0042cbac4c448c9e127f19480e639fc"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "tour-999.0.3.tgz",
+              "hashes": {
+                "sha1": "2fc24e4bb57e7d613efabb5f3f5a4f7d0a81fd45",
+                "sha512_sri": "sha512-1cchNkgbyRop7CBdICmShpjmpENXtVb/T/8kmeZhTGNaO+Nf7Hpeft0jpXmtve+pQEIsEwyC/2pnPVfH685fYA=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@brick-v2/tour/v/999.0.3"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021288",
+        "import_time": "2026-10-09T13:46:17.100944565Z",
+        "modified_time": "2026-10-09T13:35:50Z",
+        "sha256": "aabec40c085d56f59b4ca696eefe600f450a03284df0d77f562d861fed091bee",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.3"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:38:57Z",
+  "modified": "2026-10-09T13:38:57Z",
+  "summary": "@brick-v2/icons exfiltrates CI/cloud credentials via native addon on require()",
+  "details": "The package presents a minimal index.js stub exposing empty forRoot/createLogger symbols that resemble an Angular icons module. The only runtime effect of require('@brick-v2/icons') is to load a platform-specific native addon from prebuilds/<platform>-<arch>/metrics.node inside a try/catch that suppresses failures. The ELF binary imports getenv/socket/connect/gethostbyname/fork/setsid and contains strings for credential-grade environment variables (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, GITHUB_TOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, ACTIONS_RUNTIME_TOKEN, ACTIONS_ID_TOKEN_REQUEST_TOKEN, SYSTEM_ACCESSTOKEN) alongside hostname/user/cwd fields. On load it reads those variables and transmits them via a raw socket POST /native HTTP/1.0 request to oob.s4yhii.com, daemonizing via fork/setsid to continue after the host process exits. The JS surface is a decoy; the opaque native binary is the entire payload. Package coordinates (@brick-v2 scope, 'icons' name, version 999.0.1) are consistent with a dependency-confusion lure targeting internal/CI builds.",
+  "affected": [
+    {
+      "package": {
+        "name": "@brick-v2/icons",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.1"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "prebuilds/linux-x64/metrics.node",
+              "sha256": "3f8833d49735dfdfe9bdef504bbb53ff069cb48a3953d9af08659d1c5560cf26",
+              "tlsh": "cf72775bb361ce3bc4dc4334055b5a70b1b29870e77353231b11a1bb3d927885ebae9a"
+            },
+            {
+              "path": "index.js",
+              "sha256": "437f6c81830bd7ac15efe3ef2928d92f59c450029b1bcc21d27db09504cd59c4",
+              "tlsh": "54f02ed53fa9b355a1777664d55b015668ffd4f0141db784c45cc4d026a198809738fc"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "icons-999.0.1.tgz",
+              "hashes": {
+                "sha1": "adc9d1ea6c102925d891efa912db457f33e05df4",
+                "sha512_sri": "sha512-tBoBhCp6TomVJLfI6Xba0gn9uIKryqbTgD6InIZIbE59ttv5CS4JkQbIXCaiPyYsdf406o4eXqCPKSgRM4vKGw=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@brick-v2/icons/v/999.0.1"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021308",
+        "import_time": "2026-10-09T13:46:18.762929577Z",
+        "modified_time": "2026-10-09T13:38:57Z",
+        "sha256": "88a6c17d632b5a7940e2ea85e756778a9f39e80f8e91402e4b46f556b6bea317",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.1"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:40:03Z",
+  "modified": "2026-10-09T13:40:03Z",
+  "summary": "Dependency-confusion payload exfiltrates CI/cloud credentials to oob.s4yhii.com on require",
+  "details": "On require of @galicia-toolkit-cheques-nc/front, index.js silently loads prebuilds/<platform>-<arch>/metrics.node (wrapped in an empty try/catch so load failures are invisible). The native addon reads host identity (hostname, user, cwd, uname) and a set of credential-grade environment variables including AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, GITHUB_TOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, ACTIONS_RUNTIME_TOKEN, ACTIONS_ID_TOKEN_REQUEST_TOKEN, and SYSTEM_ACCESSTOKEN, then transmits them via a raw HTTP/1.0 POST to /native on the hardcoded host oob.s4yhii.com, using fork/setsid to daemonize. The addon is labeled 'metrics.node' and the module exports mimic an Angular-style forRoot/createLogger shim as a cover story. The scope name impersonates a bank/toolkit namespace and the version 999.0.1 is characteristic of dependency-confusion resolution-winning. Importing or installing this package causes CI and cloud credentials present in the environment to be sent to a non-publisher attacker-controlled host.",
+  "affected": [
+    {
+      "package": {
+        "name": "@galicia-toolkit-cheques-nc/front",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.1"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "prebuilds/linux-x64/metrics.node",
+              "sha256": "3f8833d49735dfdfe9bdef504bbb53ff069cb48a3953d9af08659d1c5560cf26",
+              "tlsh": "cf72775bb361ce3bc4dc4334055b5a70b1b29870e77353231b11a1bb3d927885ebae9a"
+            },
+            {
+              "path": "index.js",
+              "sha256": "437f6c81830bd7ac15efe3ef2928d92f59c450029b1bcc21d27db09504cd59c4",
+              "tlsh": "54f02ed53fa9b355a1777664d55b015668ffd4f0141db784c45cc4d026a198809738fc"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "front-999.0.1.tgz",
+              "hashes": {
+                "sha1": "f7365490b32a18850bf52d590daa4431b5dece37",
+                "sha512_sri": "sha512-sVHBSJMJLV9KO8yOFerUHls9KJJrR1u5PPRbN6rAm9ecE0ZuBSa+rUG4YdQHtniXCsLE9B2y/kEzKmIkDoPeuA=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@galicia-toolkit-cheques-nc/front/v/999.0.1"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021316",
+        "import_time": "2026-10-09T13:46:19.382590714Z",
+        "modified_time": "2026-10-09T13:40:03Z",
+        "sha256": "1b0f4321a682d94379b2ff6fcf727b54c49f82e9dfa2540991488a2454519aa0",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.1"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:35:10Z",
+  "modified": "2026-10-09T13:35:10Z",
+  "summary": "@brick-v2/brand preinstall native addon exfiltrates CI/cloud credentials to oob.s4yhii.com",
+  "details": "package.json declares a preinstall hook `node index.js || true` that loads a prebuilt native addon at prebuilds/<platform>-<arch>/metrics.node. The addon reads credential-grade environment variables (AWS_SECRET_ACCESS_KEY and other AWS_*, GITHUB_TOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, SYSTEM_ACCESSTOKEN, ACTIONS_RUNTIME_TOKEN, ACTIONS_ID_TOKEN_REQUEST_TOKEN, AZURE_DEVOPS_EXT_PAT) and host identifiers (hostname via gethostname/GetComputerNameA, username via getpwuid/GetUserNameA, uname release, cwd, package name), serializes them into a JSON payload of shape `{\"src\":\"native\",\"pkg\":...,\"h\":...,\"u\":...,\"os\":...,\"arch\":...,\"rel\":...,\"cwd\":...,\"e\":{...}}`, and transmits it via a raw TCP socket (socket/connect/send, with setsid+fork daemonization on Linux) to the hardcoded host oob.s4yhii.com using `POST /native HTTP/1.0`. The same exfiltration behavior is present in both the linux-x64 and win32-x64 prebuilt binaries. The JavaScript entry point exports only inert NestJS-style `forRoot` / `createLogger` placeholders; the entire operational behavior resides in the opaque native binary. The package is published under the private-looking scope `@brick-v2` at version `999.0.3`, a version-inflation shape consistent with dependency-confusion resolution against an internal `@brick-v2` scope.",
+  "affected": [
+    {
+      "package": {
+        "name": "@brick-v2/brand",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.3"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "prebuilds/linux-x64/metrics.node",
+              "sha256": "cb1f098fbee6dfae8ebfdba07446d8fef1745080ed3bb5fc6579c4e854bfae10",
+              "tlsh": "a472211eb669ca3fc4988334288bc67461f17470bb33e2133b9157bb2d9168c4675f46"
+            },
+            {
+              "path": "prebuilds/win32-x64/metrics.node",
+              "sha256": "8ba4f234d93da5d7cad92bcadda5917b825df502c1a0376177f3ac3cdaecb380",
+              "tlsh": "c9247d86bf86ec67c115463189ab83693338f2e117839b135d38b1351e27be4be86743"
+            },
+            {
+              "path": "package.json",
+              "sha256": "2693b8885937106eadab6515c3954670c3b7ea3e51f634f4674ce3c2d7306355",
+              "tlsh": "5bc08cb4292168371a00afe8bdd37c5e61df0120508c9c1481b20230c1f677c81cf22f"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "brand-999.0.3.tgz",
+              "hashes": {
+                "sha1": "9d7c61e2714a348e7cd04cf646c742896b5e16e4",
+                "sha512_sri": "sha512-GjyCN8l4vLACujOuKS6CBDkqiwMbDbkDiLYkThz1IduubMrfuIdbflGeKZI/xcVrwDDr3uBY38RHE0N3r7SoFg=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@brick-v2/brand/v/999.0.3"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021284",
+        "import_time": "2026-10-09T13:46:16.693711029Z",
+        "modified_time": "2026-10-09T13:35:10Z",
+        "sha256": "a194395a620ef40055a22d7beccbab1e1ca0c662afe83b9ee2fb23d07ebaedc5",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.3"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

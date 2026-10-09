@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:35:29Z",
+  "modified": "2026-10-09T13:35:29Z",
+  "summary": "Dependency-confusion package exfiltrates CI/CD credentials via native addon at install time",
+  "details": "Scoped npm package @galicia-toolkit-cheques-nc/front published at version 999.0.3 with UNLICENSED, no README, and no repository. package.json declares a preinstall hook `node index.js || true`, which loads a platform-specific prebuilt native addon at `prebuilds/<platform>-<arch>/metrics.node`. The shipped Linux ELF and Windows PE binaries contain hardcoded references to CI/CD credential environment variables (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, GITHUB_TOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, ACTIONS_RUNTIME_TOKEN, ACTIONS_ID_TOKEN_REQUEST_TOKEN, AZURE_DEVOPS_EXT_PAT, SYSTEM_ACCESSTOKEN) and POST their values together with host identifiers as JSON to the hardcoded non-publisher endpoint `oob.s4yhii.com /native`. The Linux binary additionally imports fork, setsid, socket, connect, and send, daemonizing a background process that maintains outbound contact to the same host; the Windows binary uses the equivalent WSAStartup/getaddrinfo/connect sequence. No native source, binding.gyp, or build script is shipped, so the opaque binary is not reproducible from the tarball. The scoped name and 999.0.3 version shape are consistent with a dependency-confusion attack targeting an internal corporate scope so that public resolution of this artifact triggers the preinstall exfiltration.",
+  "affected": [
+    {
+      "package": {
+        "name": "@galicia-toolkit-cheques-nc/front",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.3"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "prebuilds/linux-x64/metrics.node",
+              "sha256": "cb1f098fbee6dfae8ebfdba07446d8fef1745080ed3bb5fc6579c4e854bfae10",
+              "tlsh": "a472211eb669ca3fc4988334288bc67461f17470bb33e2133b9157bb2d9168c4675f46"
+            },
+            {
+              "path": "index.js",
+              "sha256": "c637e5dbaad0a3619fda36b8974dc8cb6bd5e59de25d269522a64a80e9f7c82d",
+              "tlsh": "4af005dd7fb5b31a92663564c56b010a64fbc4f0041cf684c40dc5d127f0d8809539fc"
+            },
+            {
+              "path": "package.json",
+              "sha256": "4636ca2db634b16ec8a4fc963e04eabe42ff88d310731a498205429a24332b9f",
+              "tlsh": "7fc01278a9315c365a115fd4bd636c5d51ea0174508c88188166433082e6bb841ce21b"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "front-999.0.3.tgz",
+              "hashes": {
+                "sha1": "70655df19cd340ded4d6834623cf01f9ad6b14f6",
+                "sha512_sri": "sha512-Ey8ANElLF4j1uk0A6mAYMnd/dphfU95vGRXLat5+bpi/QGx20DfLrAMQ06VTq063zPdbzuhLHsVwOwAEQNVQQw=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@galicia-toolkit-cheques-nc/front/v/999.0.3"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021286",
+        "import_time": "2026-10-09T13:46:16.908106624Z",
+        "modified_time": "2026-10-09T13:35:29Z",
+        "sha256": "29d819cdd288d1d18b8d76fbca2b2113941f344a5a80b2676ea5714367d8af44",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.3"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

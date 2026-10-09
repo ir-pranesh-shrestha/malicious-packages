@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:41:36Z",
+  "modified": "2026-10-09T13:41:36Z",
+  "summary": "@galicia-toolkit-nestjs/archetype exfiltrates CI/CD credentials via native addon on require()",
+  "details": "The package ships a minimal index.js stub that loads a prebuilt native ELF addon at prebuilds/linux-x64/metrics.node on require(). The addon reads CI/CD and cloud credentials from the environment (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, GITHUB_TOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, SYSTEM_ACCESSTOKEN, ACTIONS_RUNTIME_TOKEN, ACTIONS_ID_TOKEN_REQUEST_TOKEN, GITHUB_REPOSITORY) along with host identifiers (hostname, uid/pwuid, cwd, uname) and POSTs them as JSON to oob.s4yhii.com via a raw socket (POST /native HTTP/1.0). The addon also imports fork and setsid from libc and detaches as a background process on load, giving the payload a lifetime beyond the Node parent. The scoped name combined with a 999.0.5 version and UNLICENSED metadata fits the dependency-confusion shape intended to beat an internal package's version during resolution, meaning any CI pipeline that resolves this scope will leak long-lived cloud, npm, and GitHub Actions tokens to an attacker-controlled out-of-band host.",
+  "affected": [
+    {
+      "package": {
+        "name": "@galicia-toolkit-nestjs/archetype",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.5"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "prebuilds/linux-x64/metrics.node",
+              "sha256": "3f8833d49735dfdfe9bdef504bbb53ff069cb48a3953d9af08659d1c5560cf26",
+              "tlsh": "cf72775bb361ce3bc4dc4334055b5a70b1b29870e77353231b11a1bb3d927885ebae9a"
+            },
+            {
+              "path": "package.json",
+              "sha256": "2265252d7650ab69c6deeca4a48da853854df6988b2538c646dd7d44fd13fa5b",
+              "tlsh": "62e02675c52298230ad0ef969d550e1145aa4c4b11c9b51c03da442813ddcbb00f9779"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "archetype-999.0.5.tgz",
+              "hashes": {
+                "sha1": "707b8711f126a85fa69530c8b2b92b54aae0045d",
+                "sha512_sri": "sha512-Hb/xYdwpEmaFCBtFr78yTOiONFtKt+3VsubLi01Sa5BbK64V7COSN/DnJLd5u6BTYyzJ6OKzfunDYPDtC0N4gA=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@galicia-toolkit-nestjs/archetype/v/999.0.5"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021326",
+        "import_time": "2026-10-09T13:46:20.123359389Z",
+        "modified_time": "2026-10-09T13:41:36Z",
+        "sha256": "63cdc34da85584342e27bc84d22c01a826c71020b7bf07987626cbe457e2e560",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.5"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

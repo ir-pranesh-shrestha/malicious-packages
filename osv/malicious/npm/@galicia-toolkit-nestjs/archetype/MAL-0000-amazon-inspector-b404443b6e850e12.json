@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:43:00Z",
+  "modified": "2026-10-09T13:43:00Z",
+  "summary": "Dependency-confusion canary exfiltrating installer hostname via DNS to attacker-controlled OOB domain",
+  "details": "The package @galicia-toolkit-nestjs/archetype at version 999.0.1 is a dependency-confusion payload published under a scoped name with an implausibly high version intended to win resolution against an internal package of the same name. On module load, after a 5-second delay, it reads the installer's hostname via `require('os').hostname()` and issues a DNS resolution for `<hostname>.a999.dc.oob.s4yhii.com` using `require('dns').resolve`, encoding the installer's host identifier as a subdomain label sent to an out-of-band DNS collector at `s4yhii.com`. The destination is not associated with the apparent scope `@galicia-toolkit-nestjs` and is a generic OOB callback domain. Installing or requiring the package in a build or runtime environment where it resolves successfully causes the host identifier to be leaked to a third-party collector, confirming internal package-name exposure and the reachability of the host.",
+  "affected": [
+    {
+      "package": {
+        "name": "@galicia-toolkit-nestjs/archetype",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.1"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "index.js",
+              "sha256": "1272e63a72652e89c6a7ba1a642ef8f0092828aea789c4c065cecb6b98cdd79d",
+              "tlsh": "a5d02bac55f0f1993626b588c47f010031f7e6615058d6a5589549c10f8358826228e8"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "archetype-999.0.1.tgz",
+              "hashes": {
+                "sha1": "dfe953ecf193abda79eccd4793ad1a1ddc2505a1",
+                "sha512_sri": "sha512-IVdVvO10zNf6MJ7Xsciz2+yhvEypka7OfmhNiiusCqIACWbnbX8/i5ku4S/TVPpgJI/RkAe0rhckvkabuQgfjQ=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@galicia-toolkit-nestjs/archetype/v/999.0.1"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021335",
+        "import_time": "2026-10-09T13:46:20.803605693Z",
+        "modified_time": "2026-10-09T13:43:00Z",
+        "sha256": "b404443b6e850e1270b32271dea903ac546adb0226a37ba32b5a2e8b62bfbb52",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.1"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

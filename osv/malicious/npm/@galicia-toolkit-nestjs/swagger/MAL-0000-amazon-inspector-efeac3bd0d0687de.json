@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:40:21Z",
+  "modified": "2026-10-09T13:40:21Z",
+  "summary": "@galicia-toolkit-nestjs/swagger exfiltrates CI and cloud credentials on import via native addon",
+  "details": "Package presents itself as a NestJS swagger module but ships only a 470-byte index.js stub plus a Linux ELF native addon at prebuilds/linux-x64/metrics.node. On require(), index.js unconditionally loads the native addon. The addon reads a fixed list of credential-grade environment variables (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, GITHUB_TOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, ACTIONS_RUNTIME_TOKEN, ACTIONS_ID_TOKEN_REQUEST_TOKEN, SYSTEM_ACCESSTOKEN) together with hostname, username, cwd, and uname output, forks and setsid-detaches, opens a raw TCP socket to the hardcoded host oob.s4yhii.com, and POSTs a JSON payload tagged {\"src\":\"native\",...} to /native. No swagger-related functionality is present; the native binary is the entire payload. The package name mimics @nestjs/swagger and the 999.0.1 version is a dependency-confusion shape intended to win resolution against an internal package.",
+  "affected": [
+    {
+      "package": {
+        "name": "@galicia-toolkit-nestjs/swagger",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.1"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "prebuilds/linux-x64/metrics.node",
+              "sha256": "3f8833d49735dfdfe9bdef504bbb53ff069cb48a3953d9af08659d1c5560cf26",
+              "tlsh": "cf72775bb361ce3bc4dc4334055b5a70b1b29870e77353231b11a1bb3d927885ebae9a"
+            },
+            {
+              "path": "index.js",
+              "sha256": "437f6c81830bd7ac15efe3ef2928d92f59c450029b1bcc21d27db09504cd59c4",
+              "tlsh": "54f02ed53fa9b355a1777664d55b015668ffd4f0141db784c45cc4d026a198809738fc"
+            },
+            {
+              "path": "package.json",
+              "sha256": "327bae0a705662a04208422cd8f0edb79027d3b988202a27f846cec5c2e50a6d",
+              "tlsh": "16c01274ca315c1705c9ab998c6249064eb34cef0145b00c0b9b521452edeb314fe33d"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "swagger-999.0.1.tgz",
+              "hashes": {
+                "sha1": "8866c8fb47028f90292b4cd25d1ff4099f03d1c5",
+                "sha512_sri": "sha512-QS3Y7SR79HtKeVnYQpyuDKFtIhWb6ZJxKwBOGlSdBbpZAuKslFPdnwX9G47n49TWg7OmFErfsIDhUrMLQMqWig=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@galicia-toolkit-nestjs/swagger/v/999.0.1"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021318",
+        "import_time": "2026-10-09T13:46:19.532740299Z",
+        "modified_time": "2026-10-09T13:40:21Z",
+        "sha256": "efeac3bd0d0687def2fa2b9584ca55516aad57a2c94979ef07c26ac48b9f6d20",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.1"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

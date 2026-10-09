@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T13:39:28Z",
+  "modified": "2026-10-09T13:39:28Z",
+  "summary": "@brick-v2/table exfiltrates CI/cloud credentials to oob.s4yhii.com on require()",
+  "details": "The package ships a 470-byte index.js stub whose only behavior is to require('./prebuilds/linux-x64/metrics.node'). The bundled native ELF reads credential-grade environment variables (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, GITHUB_TOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, SYSTEM_ACCESSTOKEN, ACTIONS_RUNTIME_TOKEN, ACTIONS_ID_TOKEN_REQUEST_TOKEN) together with host identity (gethostname, getpwuid, uname, getcwd) and POSTs them as JSON to the hardcoded endpoint oob.s4yhii.com/native. The native module calls fork+setsid to detach into a background process so the exfiltration survives the parent. The package name/scope and the implausible 999.0.1 version are consistent with a dependency-confusion lure targeting an internal @brick-v2 scope; installing or requiring this package automatically triggers the credential exfiltration.",
+  "affected": [
+    {
+      "package": {
+        "name": "@brick-v2/table",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "999.0.1"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "prebuilds/linux-x64/metrics.node",
+              "sha256": "3f8833d49735dfdfe9bdef504bbb53ff069cb48a3953d9af08659d1c5560cf26",
+              "tlsh": "cf72775bb361ce3bc4dc4334055b5a70b1b29870e77353231b11a1bb3d927885ebae9a"
+            },
+            {
+              "path": "package.json",
+              "sha256": "b4947ffc3baf33de3175186f3c7c1439c564e860ae5a7e91b97b9480facf9ce8",
+              "tlsh": "74c080345631341304c5dfe54c628e160ad70c7f0006741417979428439d63774fd33c"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "table-999.0.1.tgz",
+              "hashes": {
+                "sha1": "3c257b67ff105214e6dc4e7e608f2b15b9e1f29d",
+                "sha512_sri": "sha512-4XevoD1aR9sNlwSIf4VTn3uegbND1RilqBIi9VnPVXfiSAmaOHvFDMCfLwmtP7bqurfgWpL7V9c2ZDSuVzTd/g=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@brick-v2/table/v/999.0.1"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021312",
+        "import_time": "2026-10-09T13:46:19.056547419Z",
+        "modified_time": "2026-10-09T13:39:28Z",
+        "sha256": "289c5a11091bb1a39a200214859ff7fd3c8fe3d2824b5ca5d5ea0030ddcace0a",
+        "source": "amazon-inspector",
+        "versions": [
+          "999.0.1"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}
