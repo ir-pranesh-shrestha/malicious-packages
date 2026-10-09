@@ -1,24 +1,30 @@
 {
-  "modified": "2026-10-09T13:48:11Z",
-  "published": "2026-10-09T13:36:09Z",
   "schema_version": "1.7.4",
   "id": "MAL-2026-17722",
+  "published": "2026-10-09T13:36:09Z",
+  "modified": "2026-10-09T17:18:12.909672073Z",
   "summary": "Malicious code in @galicia-toolkit-nestjs/commons (npm)",
   "details": "\n---\n_-= Per source details. Do not edit below this line.=-_\n\n## Source: amazon-inspector (eae27acb3901d275439e482d51a1451df67c1a6b2011f35881253a3fa8d2456b)\nThe package ships a tiny index.js that require()s a bundled ELF at prebuilds/linux-x64/metrics.node inside a swallow-all try/catch on module load. No C/C++ source, binding.gyp, or node-gyp/prebuild tooling is present, so the native binary cannot be rebuilt from source and its behavior is opaque to consumers. Strings extracted from the binary show it reads CI and cloud credential environment variables (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, GITHUB_TOKEN, NPM_TOKEN, NODE_AUTH_TOKEN, SYSTEM_ACCESSTOKEN, ACTIONS_RUNTIME_TOKEN, ACTIONS_ID_TOKEN_REQUEST_TOKEN) along with hostname, username and cwd, then opens a raw socket to the hardcoded host oob.s4yhii.com and issues POST /native HTTP/1.0 with a JSON body of the collected values. The addon daemonizes via fork+setsid to persist beyond the parent process. The destination host is unrelated to NestJS or any plausible publisher of a 'commons' utility. The package name mimics an internal-looking org scope and is published at version 999.0.6 with no repository and an UNLICENSED field, matching the dependency-confusion lure shape intended to win resolution against a private internal package of a similarly-named scope.\n",
   "affected": [
     {
       "package": {
-        "ecosystem": "npm",
-        "name": "@galicia-toolkit-nestjs/commons"
+        "name": "@galicia-toolkit-nestjs/commons",
+        "ecosystem": "npm"
       },
       "versions": [
         "999.0.7",
         "999.0.1",
         "999.0.8",
-        "999.0.6"
+        "999.0.6",
+        "3.0.1"
       ],
       "database_specific": {
         "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          },
           {
             "cweId": "CWE-506",
             "description": "The product contains code that appears to be malicious in nature.",
@@ -82,15 +88,10 @@
     {
       "type": "PACKAGE",
       "url": "https://www.npmjs.com/package/@galicia-toolkit-nestjs/commons/v/999.0.6"
-    }
-  ],
-  "credits": [
+    },
     {
-      "name": "Amazon Inspector",
-      "type": "FINDER",
-      "contact": [
-        "inspector-research@amazon.com"
-      ]
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@galicia-toolkit-nestjs/commons/v/3.0.1"
     }
   ],
   "database_specific": {
@@ -134,7 +135,26 @@
         "versions": [
           "999.0.6"
         ]
+      },
+      {
+        "id": "IN-MAL-2026-021338",
+        "import_time": "2026-10-09T17:16:16.835908736Z",
+        "modified_time": "2026-10-09T17:08:31Z",
+        "sha256": "e6473289d56c3d58e09f9c54a2a235341e884470a8b607c22ae8c078a744834a",
+        "source": "amazon-inspector",
+        "versions": [
+          "3.0.1"
+        ]
       }
     ]
-  }
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
 }

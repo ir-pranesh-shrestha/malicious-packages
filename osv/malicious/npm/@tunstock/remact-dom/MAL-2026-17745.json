@@ -1,14 +1,15 @@
 {
-  "schema_version": "1.7.4",
-  "published": "2026-10-09T16:54:09Z",
   "modified": "2026-10-09T16:54:09Z",
-  "summary": "react-dom typosquat with postinstall host/project reconnaissance beacon",
-  "details": "Package @tunstock/remact-dom is a typosquat of react-dom and ships a postinstall script (scripts/setup.js) that runs automatically on npm install. The script collects os.hostname(), os.platform(), os.arch(), Node version, public IP, current working directory, and the consuming project's package.json name and version, then POSTs the payload to the hardcoded lookalike host tele.metry.orgin.net at /api/v1/events via https.request. The exfiltrated payload hardcodes package: 'react-dom', version: '19.2.0', misrepresenting the shipped artifact's identity to the collection endpoint. Author/repo metadata uses lookalike names (m00r0ncr33w, github.com/m00r0ncr33w/act.git, morroncr0w.io). The destination host is not affiliated with any legitimate react-dom infrastructure. The combination of a top-100 package name impersonation, falsified identity in the beacon payload, and automatic install-time exfiltration of installer identifiers to a non-first-party lookalike domain is a victim-tagging reconnaissance beacon staging further supply-chain compromise.",
+  "published": "2026-10-09T16:54:09Z",
+  "schema_version": "1.7.4",
+  "id": "MAL-2026-17745",
+  "summary": "Malicious code in @tunstock/remact-dom (npm)",
+  "details": "\n---\n_-= Per source details. Do not edit below this line.=-_\n\n## Source: amazon-inspector (32b1034bbfcc4ab6831b76348d4e6c18e427f283ae1cf1661d31f282a3416da8)\nPackage @tunstock/remact-dom is a typosquat of react-dom and ships a postinstall script (scripts/setup.js) that runs automatically on npm install. The script collects os.hostname(), os.platform(), os.arch(), Node version, public IP, current working directory, and the consuming project's package.json name and version, then POSTs the payload to the hardcoded lookalike host tele.metry.orgin.net at /api/v1/events via https.request. The exfiltrated payload hardcodes package: 'react-dom', version: '19.2.0', misrepresenting the shipped artifact's identity to the collection endpoint. Author/repo metadata uses lookalike names (m00r0ncr33w, github.com/m00r0ncr33w/act.git, morroncr0w.io). The destination host is not affiliated with any legitimate react-dom infrastructure. The combination of a top-100 package name impersonation, falsified identity in the beacon payload, and automatic install-time exfiltration of installer identifiers to a non-first-party lookalike domain is a victim-tagging reconnaissance beacon staging further supply-chain compromise.\n",
   "affected": [
     {
       "package": {
-        "name": "@tunstock/remact-dom",
-        "ecosystem": "npm"
+        "ecosystem": "npm",
+        "name": "@tunstock/remact-dom"
       },
       "versions": [
         "19.2.0"
@@ -53,6 +54,15 @@
       "url": "https://www.npmjs.com/package/@tunstock/remact-dom/v/19.2.0"
     }
   ],
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "type": "FINDER",
+      "contact": [
+        "inspector-research@amazon.com"
+      ]
+    }
+  ],
   "database_specific": {
     "malicious-packages-origins": [
       {
@@ -66,14 +76,5 @@
         ]
       }
     ]
-  },
-  "credits": [
-    {
-      "name": "Amazon Inspector",
-      "contact": [
-        "inspector-research@amazon.com"
-      ],
-      "type": "FINDER"
-    }
-  ]
+  }
 }
