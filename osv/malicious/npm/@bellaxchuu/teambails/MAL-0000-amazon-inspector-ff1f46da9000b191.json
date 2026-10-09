@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T17:11:45Z",
+  "modified": "2026-10-09T17:11:45Z",
+  "summary": "Unpinned github: dependency executes attacker-mutable code at install time",
+  "details": "package.json declares the `libsignal` dependency as `github:Bellaxata/libsignal-node` with no commit SHA, tag, or branch pin. On `npm install`, npm resolves the current HEAD of that repository's default branch and installs its contents into node_modules, running any lifecycle scripts (preinstall/install/postinstall/prepare) present in the fetched tree. The resolved bytes are whatever the repository owner pushes at install time, delivered with no version pin and no integrity check. The GitHub account hosting the dependency is separate from the npm publishing scope, and the source is not the npm registry. A minor static match on lib/Utils/generics.js line 403 (`ping`) appears in ordinary utility code and is not independently indicative of malicious behavior.",
+  "affected": [
+    {
+      "package": {
+        "name": "@bellaxchuu/teambails",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "1.1.6"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "package.json",
+              "sha256": "b64418190eceaedc44ca5e73c2e76811e7c8f57dde5d9c5bb7dfa2cfe300a439",
+              "tlsh": "1681dd34cd58ce6306c526e9a5bd0142a47958539ec1fc1cb35547ac8f0d15f71b9f2d"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "teambails-1.1.6.tgz",
+              "hashes": {
+                "sha1": "043495345edb9b1d37264a3a262cf51242d87522",
+                "sha512_sri": "sha512-cyOCJ1BUCABLtSJuFp/mEQ/yGWjsZPqUgGxJJ60bsDqpQOX1LUnLYO4d6RrQ89rGpRdVrgWjGQMw+ynGd2d/Ew=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@bellaxchuu/teambails/v/1.1.6"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021340",
+        "import_time": "2026-10-09T17:16:17.031917332Z",
+        "modified_time": "2026-10-09T17:11:45Z",
+        "sha256": "ff1f46da9000b191689b227d86fec5a8002f6e3ff73470304df9f7bc53f57667",
+        "source": "amazon-inspector",
+        "versions": [
+          "1.1.6"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}

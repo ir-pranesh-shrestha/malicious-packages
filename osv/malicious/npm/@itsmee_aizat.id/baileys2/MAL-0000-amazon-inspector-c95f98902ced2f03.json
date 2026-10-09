@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.7.4",
+  "published": "2026-10-09T17:12:21Z",
+  "modified": "2026-10-09T17:12:21Z",
+  "summary": "Baileys fork pulls libsignal from unpinned third-party GitHub repo at install",
+  "details": "package.json declares `\"libsignal\": \"github:tenka-san/libsignal-node\"` as a runtime dependency. The source is a GitHub user account unrelated to the package publisher (`itsmeeaizat1`) and unrelated to the upstream Baileys project (`WhiskeySockets`), with no commit SHA, tag, or integrity check. `npm install` resolves the current HEAD of that repository and executes any lifecycle scripts it ships, so whoever controls `tenka-san/libsignal-node` controls code installed on the installer's machine. The shipped `lib/Signal/libsignal.js` requires this dependency by name, so the pulled code is loaded at runtime as well. The separate `fetchLatestBaileysVersion` / `fetchLatestWaWebVersion` GET requests to `raw.githubusercontent.com/WhiskeySockets/Baileys` and `web.whatsapp.com/sw.js` are read-only version probes with no installer data in the request body.",
+  "affected": [
+    {
+      "package": {
+        "name": "@itsmee_aizat.id/baileys2",
+        "ecosystem": "npm"
+      },
+      "versions": [
+        "2.0.0"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "package.json",
+              "sha256": "7cbe69e813379ed302676273b708cac7b98306c3bb6948eb0da7cc6ec9439586",
+              "tlsh": "8b81ea34ce58cea30ac526e9a9bd0002a87459539ec1f81cb35907ac8f5e24f71b9f3d"
+            },
+            {
+              "path": "lib/Utils/generics.js",
+              "sha256": "b4214ae766b75ba70ca58b9afc975e73df363447bf3539ab23215747add7b0c1",
+              "tlsh": "7052d6516df3513906a3e1ea6b5fe016b339a4233609cce4bd1c83208f815a8d6e77d9"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "baileys2-2.0.0.tgz",
+              "hashes": {
+                "sha1": "2dfde81c68a4ea6f5cd4845e392ee027c4241607",
+                "sha512_sri": "sha512-Hxk5hg0WjCTIp7OPzBP2ChB68cZpiSdaUY6Jy8MT1Yg24fRAA7EkEhj1hAYsmNY9VL5OiuRxSjzZwqLJe2n3UA=="
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/@itsmee_aizat.id/baileys2/v/2.0.0"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-021343",
+        "import_time": "2026-10-09T17:16:17.328775692Z",
+        "modified_time": "2026-10-09T17:12:21Z",
+        "sha256": "c95f98902ced2f03261621ba4cb5386a892bf31ac4510b916708d3d3eb21aa50",
+        "source": "amazon-inspector",
+        "versions": [
+          "2.0.0"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "inspector-research@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ]
+}
