@@ -1,8 +1,8 @@
 {
   "schema_version": "1.7.4",
-  "modified": "2026-10-09T03:11:10Z",
+  "modified": "2026-10-09T03:35:32Z",
   "published": "2026-10-08T15:19:04Z",
-  "details": "@galicia-toolkit/spa-build-config@999.0.3 and @galicia-toolkit/spa-build-config@999.0.5 claim the `@galicia-toolkit` scope and describe themselves as dependency-confusion PoCs. Their postinstall hook runs on npm install with `node postinstall.js || true`. The script collects package and host environment data, sends it by HTTP to `oob.s4yhii.com:9999`, and sends DNS queries to subdomains of `oob.s4yhii.com`; this is a dependency-confusion probe, and the sandbox also recorded an outbound connection to `66.94.100.203:9999`. The npm account `s4yhii_` published version 999.0.5 on 2026-10-08; in the InvisiRisk sandbox, 999.0.6 ran the same command, sent the same DNS queries, and connected to the same address.",
+  "details": "@galicia-toolkit/spa-build-config@999.0.3 and @galicia-toolkit/spa-build-config@999.0.5 claim the `@galicia-toolkit` scope and describe themselves as dependency-confusion PoCs. Their postinstall hook runs on npm install with `node postinstall.js || true`. The script collects package and host environment data, sends it by HTTP to `oob.s4yhii.com:9999`, and sends DNS queries to subdomains of `oob.s4yhii.com`, making it a dependency-confusion probe; it also connects to `66.94.100.203:9999`. The npm account `s4yhii_` published version 999.0.5 on 2026-10-08; 999.0.6 runs the same command on install, sends the same DNS queries, and connects to the same address.",
   "affected": [
     {
       "package": {
