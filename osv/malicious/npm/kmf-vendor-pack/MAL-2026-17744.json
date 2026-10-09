@@ -1,0 +1,42 @@
+{
+  "modified": "2026-10-09T15:55:48Z",
+  "published": "2026-10-09T15:55:48Z",
+  "schema_version": "1.7.4",
+  "id": "MAL-2026-17744",
+  "summary": "Malicious code in kmf-vendor-pack (npm)",
+  "details": "\n---\n_-= Per source details. Do not edit below this line.=-_\n\n## Source: ossf-package-analysis (90252f22765869df637f77df2754cd36724812550151c9c7c53926bc83daad2e)\nThe OpenSSF Package Analysis project identified 'kmf-vendor-pack' @ 99.0.0 (npm) as malicious.\n\nIt is considered malicious because:\n\n- The package communicates with a domain associated with malicious activity.\n",
+  "affected": [
+    {
+      "package": {
+        "ecosystem": "npm",
+        "name": "kmf-vendor-pack"
+      },
+      "versions": [
+        "99.0.0"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "name": "OpenSSF: Package Analysis",
+      "type": "FINDER",
+      "contact": [
+        "https://github.com/ossf/package-analysis",
+        "https://openssf.slack.com/channels/package_analysis"
+      ]
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "import_time": "2026-10-09T16:20:00.871582705Z",
+        "modified_time": "2026-10-09T15:55:48Z",
+        "sha256": "90252f22765869df637f77df2754cd36724812550151c9c7c53926bc83daad2e",
+        "source": "ossf-package-analysis",
+        "versions": [
+          "99.0.0"
+        ]
+      }
+    ]
+  }
+}
