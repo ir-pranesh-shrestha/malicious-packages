@@ -1,8 +1,8 @@
 {
   "schema_version": "1.7.4",
-  "modified": "2026-10-09T02:25:42Z",
+  "modified": "2026-10-09T03:11:10Z",
   "published": "2026-10-08T15:19:15Z",
-  "details": "The available evidence does not establish what `@galicia-toolkit/tag-manager`@999.0.3, @999.0.5, or @999.0.6 impersonates or claims to be. No files were captured, so the trigger command and payload behavior could not be verified; a sandbox trace records an outbound connection to `66.94.100.203:9999`. The npm account and publication date (UTC) for these versions are not available in the supplied evidence.",
+  "details": "@galicia-toolkit/tag-manager claims the `@galicia-toolkit` scope and describes itself as a dependency-confusion PoC. Its postinstall hook runs `node postinstall.js || true` on npm install; the script collects host, platform, runtime, network, and environment data, then sends it over HTTP to `oob.s4yhii.com:9999` and encodes hostname, username, platform, and architecture in DNS queries to subdomains of `oob.s4yhii.com`. The npm account s4yhii_ published versions 999.0.3 and 999.0.5 on 2026-10-08; in the InvisiRisk sandbox, 999.0.6 ran the same `node postinstall.js || true` command, sent the same DNS queries, and connected to `66.94.100.203:9999`.",
   "affected": [
     {
       "package": {
