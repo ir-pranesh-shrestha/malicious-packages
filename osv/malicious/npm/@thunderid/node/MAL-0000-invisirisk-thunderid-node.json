@@ -1,8 +1,8 @@
 {
   "schema_version": "1.7.4",
-  "modified": "2026-10-15T17:31:58Z",
+  "modified": "2026-10-15T17:37:58Z",
   "published": "2026-10-15T15:42:39Z",
-  "details": "@thunderid/node describes itself as a Node.js runtime SDK for ThunderID; its package entry points expose a client for authentication and session management. Its code runs when imported or required, for example with `require(\"@thunderid/node\")`, and the package has no install hooks. The npm account GitHub Actions published version 1.2.1 on 2026-10-15.",
+  "details": "@thunderid/node describes itself as a Node.js runtime SDK for ThunderID; its package entry points expose a client for authentication and session management. Its code runs when imported or required, for example with `require(\"@thunderid/node\")`, and the package has no install hooks. The npm account GitHub Actions published version 1.2.1 on 2026-10-15 and version 1.2.2 on 2026-10-15.",
   "affected": [
     {
       "package": {
@@ -11,7 +11,8 @@
       },
       "versions": [
         "1.2.0",
-        "1.2.1"
+        "1.2.1",
+        "1.2.2"
       ],
       "database_specific": {
         "cwes": [
@@ -60,6 +61,16 @@
           ],
           "digests": {
             "sha256": "e081a8fe4be93acd39a431d9ff95a2984911af58254b3fef2515d5dc8cbe9082"
+          },
+          "note": "Malicious package manifest."
+        },
+        {
+          "source": "PACKAGE_ARCHIVE",
+          "paths": [
+            "package.json"
+          ],
+          "digests": {
+            "sha256": "ebe97f76b26174964e923a6850b2b13bcd014896d66e6b5a9014a829606a2b2d"
           },
           "note": "Malicious package manifest."
         }
